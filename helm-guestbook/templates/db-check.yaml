@@ -14,12 +14,12 @@ spec:
         command:
           - "sh"
           - "-c"
-          - "ech 'Runing db check to  $DB_HOST...';sellp 5; echo 'Connected!'"
+          - "echo 'Running db check to $DB_HOST...'; sleep 5; echo 'Connected!'"
         env:
           - name: DB_HOST
             valueFrom:
               configMapKeyRef:
                 name: db-config
                 key: db_host
-                
+
 
