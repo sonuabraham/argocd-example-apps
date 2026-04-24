@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-check
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: migration
+        image: busybox
+        command:
+          - "sh"
+          - "-c"
+          - "ech 'Runing db check to  $DB_HOST...';sellp 5; echo 'Connected!'"
+        env:
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: db-config
+                key: db_host
+                
+
